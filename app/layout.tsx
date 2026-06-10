@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const archivoSans = Archivo({
@@ -12,6 +12,13 @@ const archivoSans = Archivo({
 const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-ibm-mono",
   weight: ["400", "500"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  weight: ["400"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -29,9 +36,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${archivoSans.variable} ${ibmPlexMono.variable} h-full antialiased`}
+      className={`${archivoSans.variable} ${ibmPlexMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );
 }
