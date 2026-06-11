@@ -75,11 +75,11 @@ export default async function Home() {
           <p className="font-mono text-[0.813rem]">
             <span className="text-muted">ask the archive</span>{" "}
             <span className="hidden text-paper sm:inline">
-              fast water types with high attack
+              fast water types with high attack...
             </span>
           </p>
           <button
-            className="rounded-full border border-vermilion px-3 py-1 font-mono text-xs"
+            className="rounded-full border border-vermilion text-vermilion px-3 py-1 font-mono text-xs"
             disabled={true}
           >
             consult &#8599;
