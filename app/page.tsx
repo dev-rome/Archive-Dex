@@ -1,34 +1,10 @@
 import Link from "next/link";
 import { getPokemonData } from "@/services/getPokemonData";
-import { pokemonTypeColors } from "@/constants/pokemonTypeColors";
+import SpecimenBubbles from "@/components/SpecimenBubbles";
 
 export default async function Home() {
   const pokemon = await getPokemonData();
   const typesStudied = new Set(pokemon.flatMap((p) => p.types));
-
-  const bubbles = [
-    {
-      id: "006",
-      bg: pokemonTypeColors.fire,
-      fg: "#4A1F11",
-      top: "top-4 md:top-20 xl:top-24",
-      right: "right-4 md:right-40 xl:right-[25rem]",
-    },
-    {
-      id: "025",
-      bg: pokemonTypeColors.electric,
-      fg: "#4A3A14",
-      top: "top-20 md:top-30 xl:top-40",
-      right: "right-10 md:right-12 xl:right-56",
-    },
-    {
-      id: "007",
-      bg: pokemonTypeColors.water,
-      fg: "#1E3044",
-      top: "md:top-6 xl:top-4",
-      right: "md:right-20 xl:right-[17rem]",
-    },
-  ];
 
   const archiveStatistics = [
     {
@@ -60,15 +36,7 @@ export default async function Home() {
             {pokemon.length} {" "} specimens on file. Drag them around, they
             don&apos;t mind.
           </p>
-          {bubbles.map((b, i) => (
-            <div
-              key={b.id}
-              className={`absolute h-12 w-12 items-center justify-center rounded-full font-mono text-sm md:h-14 md:w-14 lg:h-16 lg:w-16 ${b.top} ${b.right} ${i === 2 ? "hidden md:flex" : "flex"}`}
-              style={{ backgroundColor: b.bg, color: b.fg }}
-            >
-              <span>{b.id}</span>
-            </div>
-          ))}
+          <SpecimenBubbles />
         </section>
 
         <div className="flex items-center justify-between rounded-[15px] border border-line px-4 py-3">
@@ -79,7 +47,7 @@ export default async function Home() {
             </span>
           </p>
           <button
-            className="rounded-full border border-vermilion text-vermilion px-3 py-1 font-mono text-xs"
+            className="rounded-full border border-vermilion px-3 py-1 font-mono text-xs text-vermilion"
             disabled={true}
           >
             consult &#8599;
