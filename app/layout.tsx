@@ -41,9 +41,7 @@ export default function RootLayout({
       className={`${archivoSans.variable} ${ibmPlexMono.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <header>
-          <Nav />
-        </header>
+        <Nav />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

@@ -17,6 +17,7 @@ export default function Nav() {
   ];
 
   return (
+    <header>
     <nav className="px-4 py-6 md:px-8">
       <div className="mx-auto flex max-w-6xl items-center justify-between border-b border-line pb-4">
         <Link
@@ -40,7 +41,8 @@ export default function Nav() {
             </li>
           ))}
         </ul>
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </header>
   );
 }
