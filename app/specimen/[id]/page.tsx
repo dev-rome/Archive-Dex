@@ -19,6 +19,7 @@ export default async function SpecimenPage({
     getSpecimen(numId),
     getSpecies(numId),
   ]);
+  
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-8">
       <article className="relative overflow-hidden">
@@ -31,7 +32,7 @@ export default async function SpecimenPage({
         >
           {String(specimen.id).padStart(3, "0")}
         </span>
-        
+
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-6">
             <p className="font-mono text-sm tracking-[0.12em] text-vermilion">
