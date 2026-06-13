@@ -9,9 +9,12 @@ export default function SpecimenCard({ pokemon }: { pokemon: Pokemon }) {
 
   return (
     <Link href={`/specimen/${pokemon.id}`} className="block">
-      <article className="relative overflow-hidden rounded-[10px] border border-line bg-surface p-4">
+      <article
+        className="group relative overflow-hidden rounded-[10px] border border-line bg-surface p-4 transition-colors hover:border-(--type)"
+        style={{ "--type": typeColor } as React.CSSProperties}
+      >
         <span
-          className="pointer-events-none absolute -top-2 right-2 font-serif text-6xl opacity-30"
+          className="pointer-events-none absolute -top-2 right-2 font-serif text-6xl opacity-30 group-hover:opacity-60"
           style={{ color: typeColor }}
         >
           {dexNumber}

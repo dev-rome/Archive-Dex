@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import { Pokemon, PokemonType } from "@/types/pokemon";
+import {
+  motion,
+  Variants,
+  AnimatePresence,
+  useReducedMotion,
+} from "motion/react";
 import SpecimenCard from "./SpecimenCard";
 
 export default function ArchiveIndex({
@@ -16,6 +22,20 @@ export default function ArchiveIndex({
     activeType === "all"
       ? pokemon
       : pokemon.filter((p) => p.types.some((t) => t === activeType));
+  const shouldReduceMotion = useReducedMotion();
+  const container: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: shouldReduceMotion ? 0 : 0.04 } },
+  };
+  const item: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: shouldReduceMotion ? 0 : 0.4, ease: "easeOut" },
+    },
+    exit: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.9 },
+  };
 
   return (
     <div className="space-y-4">
@@ -39,11 +59,20 @@ export default function ArchiveIndex({
         {filtered.length} of {pokemon.length} shown
       </p>
 
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-4">
-        {filtered.map((p) => (
-          <SpecimenCard key={p.id} pokemon={p} />
-        ))}
-      </div>
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-4"
+      >
+        <AnimatePresence>
+          {filtered.map((p) => (
+            <motion.div key={p.id} variants={item} layout>
+              <SpecimenCard pokemon={p} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

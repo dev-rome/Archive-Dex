@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { pokemonTypeColors } from "@/constants/pokemonTypeColors";
 import { getSpecimen } from "@/services/getSpecimen";
 import { getSpecies } from "@/services/getSpecies";
+import { pokemonTypeColors } from "@/constants/pokemonTypeColors";
+import MeasurementBars from "@/components/MeasurementBars";
 
 export async function generateStaticParams() {
   return Array.from({ length: 151 }, (_, i) => ({ id: String(i + 1) }));
@@ -19,7 +20,7 @@ export default async function SpecimenPage({
     getSpecimen(numId),
     getSpecies(numId),
   ]);
-  
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-8">
       <article className="relative overflow-hidden">
@@ -70,29 +71,10 @@ export default async function SpecimenPage({
               <p className="font-mono text-sm tracking-widest text-muted">
                 measurements
               </p>
-              {specimen.stats.map((stat) => (
-                <div key={stat.name} className="flex items-center gap-3">
-                  {/* label — fixed width so all bars start at the same x */}
-                  <span className="w-20 font-mono text-xs text-muted">
-                    {stat.name}
-                  </span>
-                  {/* track */}
-                  <div className="relative h-0.5 flex-1 bg-line">
-                    {/* fill */}
-                    <div
-                      className="absolute top-0 left-0 h-0.5"
-                      style={{
-                        width: `${(stat.value / 255) * 100}%`,
-                        backgroundColor: pokemonTypeColors[specimen.types[0]],
-                      }}
-                    />
-                  </div>
-                  {/* value */}
-                  <span className="w-8 text-right font-mono text-xs text-paper">
-                    {stat.value}
-                  </span>
-                </div>
-              ))}
+              <MeasurementBars
+                stats={specimen.stats}
+                typeColor={pokemonTypeColors[specimen.types[0]]}
+              />
             </section>
 
             <section className="space-y-2">
