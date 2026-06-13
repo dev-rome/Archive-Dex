@@ -2,6 +2,7 @@ import {
   PokemonListResponse,
   PokemonDetailShape,
   Pokemon,
+  PokemonType,
 } from "@/types/pokemon";
 
 export async function getPokemonData(): Promise<Pokemon[]> {
@@ -25,7 +26,7 @@ export async function getPokemonData(): Promise<Pokemon[]> {
         sprite: detail.sprites.front_default,
         height: detail.height,
         weight: detail.weight,
-        types: detail.types.map((t) => t.type.name),
+        types: detail.types.map((t) => t.type.name as PokemonType),
       };
     }),
   );

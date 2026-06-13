@@ -36,7 +36,7 @@ export type Pokemon = {
   sprite: string;
   height: number;
   weight: number;
-  types: string[];
+  types: PokemonType[];
 };
 
 export type PokemonDetailShape = {
