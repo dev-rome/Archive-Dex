@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ViewTransition } from "react";
 import { Pokemon } from "@/types/pokemon";
 import { pokemonTypeColors } from "@/constants/pokemonTypeColors";
 
@@ -20,19 +21,21 @@ export default function SpecimenCard({ pokemon }: { pokemon: Pokemon }) {
           {dexNumber}
         </span>
         <div className="flex flex-col">
-          <div
-            className="flex h-20 w-20 items-center justify-center rounded-full"
-            style={{
-              backgroundColor: pokemonTypeColors[pokemon.types[0]],
-            }}
-          >
-            <Image
-              src={pokemon.sprite}
-              alt={pokemon.name}
-              width={60}
-              height={60}
-            />
-          </div>
+          <ViewTransition name={`sprite-${pokemon.id}`}>
+            <div
+              className="flex h-20 w-20 items-center justify-center rounded-full"
+              style={{
+                backgroundColor: pokemonTypeColors[pokemon.types[0]],
+              }}
+            >
+              <Image
+                src={pokemon.sprite}
+                alt={pokemon.name}
+                width={60}
+                height={60}
+              />
+            </div>
+          </ViewTransition>
           <h2 className="font-serif text-[1.375rem] text-paper capitalize">
             {pokemon.name}
           </h2>

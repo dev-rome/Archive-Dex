@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ViewTransition } from "react";
 import { getSpecimen } from "@/services/getSpecimen";
 import { getSpecies } from "@/services/getSpecies";
 import { pokemonTypeColors } from "@/constants/pokemonTypeColors";
@@ -46,20 +47,21 @@ export default async function SpecimenPage({
             <p className="max-w-prose font-sans leading-[1.65] text-muted">
               {species}
             </p>
-
-            <div
-              className="flex h-20 w-20 items-center justify-center rounded-full"
-              style={{
-                backgroundColor: pokemonTypeColors[specimen.types[0]],
-              }}
-            >
-              <Image
-                src={specimen.sprite}
-                alt={specimen.name}
-                width={60}
-                height={60}
-              />
-            </div>
+            <ViewTransition name={`sprite-${specimen.id}`}>
+              <div
+                className="flex h-20 w-20 items-center justify-center rounded-full"
+                style={{
+                  backgroundColor: pokemonTypeColors[specimen.types[0]],
+                }}
+              >
+                <Image
+                  src={specimen.sprite}
+                  alt={specimen.name}
+                  width={60}
+                  height={60}
+                />
+              </div>
+            </ViewTransition>
 
             <p className="font-mono text-xs text-muted">
               HT {specimen.height / 10}m · WT {specimen.weight / 10}kg
