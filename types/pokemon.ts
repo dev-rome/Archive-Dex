@@ -53,3 +53,27 @@ export type PokemonDetailShape = {
     };
   }[];
 };
+
+export type Specimen = {
+  id: number;
+  name: string;
+  sprite: string;
+  types: PokemonType[];
+  height: number;
+  weight: number;
+  stats: { name: string; value: number }[];
+};
+
+export type SpecimenDetailShape = PokemonDetailShape & {
+  stats: {
+    base_stat: number;
+    stat: { name: string };
+  }[];
+};
+
+export type SpeciesShape = {
+  flavor_text_entries: {
+    flavor_text: string;
+    language: { name: string };
+  }[];
+};
