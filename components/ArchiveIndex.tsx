@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Pokemon, PokemonType } from "@/types/pokemon";
 import {
   motion,
@@ -17,7 +18,11 @@ export default function ArchiveIndex({
   pokemon: Pokemon[];
   types: ("all" | PokemonType)[];
 }) {
-  const [activeType, setActiveType] = useState<"all" | PokemonType>("all");
+  const searchParams = useSearchParams();
+  const initialType = (searchParams.get("type") ?? "all") as
+    | "all"
+    | PokemonType;
+  const [activeType, setActiveType] = useState<"all" | PokemonType>(initialType);
   const filtered =
     activeType === "all"
       ? pokemon
@@ -50,11 +55,9 @@ export default function ArchiveIndex({
           </button>
         ))}
       </div>
-
       <p className="font-mono text-sm text-muted">
         {filtered.length} of {pokemon.length} shown
       </p>
-
       <motion.div className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-4">
         <AnimatePresence>
           {filtered.map((p) => (

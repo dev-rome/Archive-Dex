@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getPokemonData } from "@/services/getPokemonData";
 import { PokemonType } from "@/types/pokemon";
 import ArchiveIndex from "@/components/ArchiveIndex";
@@ -13,7 +14,11 @@ export default async function Archive() {
     <div className="px-4 md:px-8">
       <div className="mx-auto max-w-6xl">
         <h1 className="mb-2 font-serif text-5xl">The index</h1>
-        <ArchiveIndex pokemon={pokemon} types={types} />
+        <Suspense
+          fallback={<p className="font-mono text-sm text-muted">loading...</p>}
+        >
+          <ArchiveIndex pokemon={pokemon} types={types} />
+        </Suspense>
       </div>
     </div>
   );

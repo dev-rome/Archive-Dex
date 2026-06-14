@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { getPokemonData } from "@/services/getPokemonData";
 import SpecimenBubbles from "@/components/SpecimenBubbles";
+import AskBar from "@/components/AskBar";
 
 export default async function Home() {
   const pokemon = await getPokemonData();
   const typesStudied = new Set(pokemon.flatMap((p) => p.types));
-
   const archiveStatistics = [
     {
       label: "catalogued",
@@ -38,22 +38,7 @@ export default async function Home() {
           </p>
           <SpecimenBubbles />
         </section>
-
-        <div className="flex items-center justify-between rounded-[15px] border border-line px-4 py-3">
-          <p className="font-mono text-[0.813rem]">
-            <span className="text-muted">ask the archive</span>{" "}
-            <span className="hidden text-paper sm:inline">
-              fast water types with high attack...
-            </span>
-          </p>
-          <button
-            className="rounded-full border border-vermilion px-3 py-1 font-mono text-xs text-vermilion"
-            disabled={true}
-          >
-            consult &#8599;
-          </button>
-        </div>
-
+        <AskBar />
         <section className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <h2 className="sr-only">archive statistics</h2>
           {archiveStatistics.map((stat) => (
@@ -68,7 +53,6 @@ export default async function Home() {
             </div>
           ))}
         </section>
-
         <section className="space-y-2">
           <h2 className="font-mono text-sm tracking-[0.08em] text-muted">
             recently examined
