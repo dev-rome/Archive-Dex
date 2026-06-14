@@ -5,6 +5,7 @@ import { getSpecimen } from "@/services/getSpecimen";
 import { getSpecies } from "@/services/getSpecies";
 import { pokemonTypeColors } from "@/constants/pokemonTypeColors";
 import MeasurementBars from "@/components/MeasurementBars";
+import CuratorNote from "@/components/CuratorNote";
 
 export async function generateStaticParams() {
   return Array.from({ length: 151 }, (_, i) => ({ id: String(i + 1) }));
@@ -34,7 +35,6 @@ export default async function SpecimenPage({
         >
           {String(specimen.id).padStart(3, "0")}
         </span>
-
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-6">
             <p className="font-mono text-sm tracking-[0.12em] text-vermilion">
@@ -62,12 +62,29 @@ export default async function SpecimenPage({
                 />
               </div>
             </ViewTransition>
-
             <p className="font-mono text-xs text-muted">
               HT {specimen.height / 10}m · WT {specimen.weight / 10}kg
             </p>
-          </div>
 
+            <div className="flex gap-2">
+              {specimen.id > 1 && (
+                <Link
+                  href={`/specimen/${specimen.id - 1}`}
+                  className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted"
+                >
+                  ← {String(specimen.id - 1).padStart(3, "0")}
+                </Link>
+              )}
+              {specimen.id < 151 && (
+                <Link
+                  href={`/specimen/${specimen.id + 1}`}
+                  className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted"
+                >
+                  {String(specimen.id + 1).padStart(3, "0")} →
+                </Link>
+              )}
+            </div>
+          </div>
           <div className="space-y-8">
             <section className="space-y-3">
               <p className="font-mono text-sm tracking-widest text-muted">
@@ -78,37 +95,17 @@ export default async function SpecimenPage({
                 typeColor={pokemonTypeColors[specimen.types[0]]}
               />
             </section>
-
             <section className="space-y-2">
               <p className="font-mono text-sm tracking-widest text-muted">
                 curator&apos;s note — ai
               </p>
-              <p className="border-l-2 border-vermilion pl-4 font-sans leading-[1.65] text-paper">
-                {/* static placeholder for now — goes live Day 8 */}A field
-                assessment will appear here once the archive&apos;s curator
-                reviews this specimen.
-              </p>
+              <CuratorNote
+                name={specimen.name}
+                types={specimen.types}
+                stats={specimen.stats}
+              />
             </section>
           </div>
-        </div>
-
-        <div className="mt-12 flex gap-2">
-          {specimen.id > 1 && (
-            <Link
-              href={`/specimen/${specimen.id - 1}`}
-              className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted"
-            >
-              ← {String(specimen.id - 1).padStart(3, "0")}
-            </Link>
-          )}
-          {specimen.id < 151 && (
-            <Link
-              href={`/specimen/${specimen.id + 1}`}
-              className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted"
-            >
-              {String(specimen.id + 1).padStart(3, "0")} →
-            </Link>
-          )}
         </div>
       </article>
     </div>
