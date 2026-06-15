@@ -6,7 +6,7 @@ import {
 } from "@/types/pokemon";
 
 export async function getPokemonData(): Promise<Pokemon[]> {
-  const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151", {
+  const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=1025", {
     next: { revalidate: false },
   });
 

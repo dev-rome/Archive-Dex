@@ -8,7 +8,7 @@ import MeasurementBars from "@/components/MeasurementBars";
 import CuratorNote from "@/components/CuratorNote";
 
 export async function generateStaticParams() {
-  return Array.from({ length: 151 }, (_, i) => ({ id: String(i + 1) }));
+  return Array.from({ length: 1025 }, (_, i) => ({ id: String(i + 1) }));
 }
 
 export default async function SpecimenPage({

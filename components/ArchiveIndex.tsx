@@ -22,11 +22,19 @@ export default function ArchiveIndex({
   const initialType = (searchParams.get("type") ?? "all") as
     | "all"
     | PokemonType;
-  const [activeType, setActiveType] = useState<"all" | PokemonType>(initialType);
-  const filtered =
-    activeType === "all"
-      ? pokemon
-      : pokemon.filter((p) => p.types.some((t) => t === activeType));
+  const [activeType, setActiveType] = useState<"all" | PokemonType>(
+    initialType,
+  );
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const PER_PAGE = 50;
+  const filtered = pokemon
+    .filter(
+      (p) => activeType === "all" || p.types.some((t) => t === activeType),
+    )
+    .filter((p) => p.name.toLowerCase().includes(search.toLowerCase()));
+  const totalPages = Math.ceil(filtered.length / PER_PAGE);
+  const paged = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
   const shouldReduceMotion = useReducedMotion();
   const item: Variants = {
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
@@ -40,11 +48,23 @@ export default function ArchiveIndex({
 
   return (
     <div className="space-y-4">
+      <input
+        value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setPage(1);
+        }}
+        placeholder="search the archive…"
+        className="w-full rounded-[15px] border border-line bg-transparent px-4 py-3 font-mono text-sm text-paper outline-none placeholder:text-muted"
+      />
       <div className="flex flex-wrap gap-2">
         {types.map((t) => (
           <button
             key={t}
-            onClick={() => setActiveType(t)}
+            onClick={() => {
+              setActiveType(t);
+              setPage(1);
+            }}
             className={`rounded-full px-3 py-1 font-mono text-sm ${
               t === activeType
                 ? "bg-paper text-ink"
@@ -58,15 +78,42 @@ export default function ArchiveIndex({
       <p className="font-mono text-sm text-muted">
         {filtered.length} of {pokemon.length} shown
       </p>
-      <motion.div className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-4">
-        <AnimatePresence>
-          {filtered.map((p) => (
-            <motion.div key={p.id} variants={item} layout>
-              <SpecimenCard pokemon={p} />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+      {filtered.length === 0 ? (
+        <p className="py-12 text-center font-mono text-sm text-muted">
+          no specimens match — try a different search or filter
+        </p>
+      ) : (
+        <>
+          <motion.div className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-4">
+            <AnimatePresence>
+              {paged.map((p) => (
+                <motion.div key={p.id} variants={item} layout>
+                  <SpecimenCard pokemon={p} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+          <div className="flex items-center justify-center gap-4 font-mono text-sm">
+            <button
+              className="disabled:cursor-not-allowed disabled:opacity-30"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+            >
+              ← prev
+            </button>
+            <span className="text-muted">
+              page {page} of {totalPages}
+            </span>
+            <button
+              className="disabled:cursor-not-allowed disabled:opacity-30"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+            >
+              next →
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }
