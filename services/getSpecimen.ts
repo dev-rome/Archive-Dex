@@ -1,9 +1,15 @@
+import { notFound } from "next/navigation";
 import { PokemonType, Specimen, SpecimenDetailShape } from "@/types/pokemon";
 
 export async function getSpecimen(id: number): Promise<Specimen> {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
     next: { revalidate: false },
   });
+
+  if (!res.ok) {
+    notFound();
+  }
+
   const data: SpecimenDetailShape = await res.json();
 
   return {
