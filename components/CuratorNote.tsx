@@ -30,6 +30,7 @@ export default function CuratorNote({
       {isLoading && !completion && (
         <p className="font-mono text-xs text-muted">consulting the archive…</p>
       )}
+
       {completion && (
         <>
           <p className="border-l-2 border-vermilion pl-4 font-sans leading-[1.65] text-paper">
@@ -44,6 +45,7 @@ export default function CuratorNote({
           </button>
         </>
       )}
+
       {error && (
         <p className="font-mono text-xs text-vermilion">
           the curator is unavailable — try again
