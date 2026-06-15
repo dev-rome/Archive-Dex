@@ -6,6 +6,7 @@ import { getSpecies } from "@/services/getSpecies";
 import { pokemonTypeColors } from "@/constants/pokemonTypeColors";
 import MeasurementBars from "@/components/MeasurementBars";
 import CuratorNote from "@/components/CuratorNote";
+import RecordExamination from "@/components/RecordExamination";
 
 export async function generateStaticParams() {
   return Array.from({ length: 1025 }, (_, i) => ({ id: String(i + 1) }));
@@ -26,6 +27,7 @@ export default async function SpecimenPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-8">
       <article className="relative overflow-hidden">
+        <RecordExamination id={specimen.id} name={specimen.name} />
         <span
           className="pointer-events-none absolute -top-8 right-0 font-serif leading-none opacity-[0.08]"
           style={{

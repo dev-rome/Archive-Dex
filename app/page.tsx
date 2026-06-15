@@ -2,27 +2,16 @@ import Link from "next/link";
 import { getPokemonData } from "@/services/getPokemonData";
 import SpecimenBubbles from "@/components/SpecimenBubbles";
 import AskBar from "@/components/AskBar";
+import ExaminedCount from "@/components/ExaminedCount";
+import RecentlyExamined from "@/components/RecentlyExamined";
 
 export default async function Home() {
   const pokemon = await getPokemonData();
   const typesStudied = new Set(pokemon.flatMap((p) => p.types));
   const archiveStatistics = [
-    {
-      label: "catalogued",
-      value: pokemon.length,
-    },
-    {
-      label: "types studied",
-      value: typesStudied.size,
-    },
-    {
-      label: "examined by you",
-      value: "—",
-    },
-    {
-      label: "team drafts",
-      value: "—",
-    },
+    { label: "catalogued", value: pokemon.length },
+    { label: "types studied", value: typesStudied.size },
+    { label: "team drafts", value: "—" },
   ];
 
   return (
@@ -33,7 +22,7 @@ export default async function Home() {
             Good evening, <br /> curator.
           </h1>
           <p className="font-mono text-xs text-muted">
-            {pokemon.length} {" "} specimens on file. Drag them around, they
+            {pokemon.length} specimens on file. Drag them around, they
             don&apos;t mind.
           </p>
           <SpecimenBubbles />
@@ -52,21 +41,19 @@ export default async function Home() {
               </p>
             </div>
           ))}
+          <div className="rounded-lg border border-line bg-surface p-4">
+            <p className="font-mono text-sm text-muted">examined by you</p>
+            <p className="font-serif text-[1.75rem] text-paper md:text-4xl">
+              <ExaminedCount />
+            </p>
+          </div>
         </section>
         <section className="space-y-2">
           <h2 className="font-mono text-sm tracking-[0.08em] text-muted">
             recently examined
           </h2>
-          <div className="flex flex-wrap gap-2">
-            <span className="rounded-full border border-line px-3 py-1 font-mono text-sm">
-              025 pikachu
-            </span>
-            <span className="rounded-full border border-line px-3 py-1 font-mono text-sm">
-              006 charizard
-            </span>
-            <span className="rounded-full border border-line px-3 py-1 font-mono text-sm">
-              001 bulbasaur
-            </span>
+          <div className="flex flex-wrap items-center gap-2">
+            <RecentlyExamined />
             <Link
               href="/archive"
               className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted"
