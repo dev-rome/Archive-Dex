@@ -9,11 +9,14 @@ export default function AskBar() {
   const [notFound, setNotFound] = useState(false);
   const [error, setError] = useState(false);
   const router = useRouter();
+
   const handleAsk = async () => {
     if (!query.trim()) return;
+
     setLoading(true);
     setNotFound(false);
     setError(false);
+
     try {
       const res = await fetch("/api/ask", {
         method: "POST",
@@ -24,7 +27,7 @@ export default function AskBar() {
         setError(true);
         return;
       }
-      const data = await res.json();
+      const data: { types?: string[] } = await res.json();
       if (data.types?.[0]) {
         router.push(`/archive?type=${data.types[0]}`);
       } else {
@@ -39,9 +42,9 @@ export default function AskBar() {
 
   return (
     <>
-      <div className="flex items-center justify-between rounded-[15px] border border-line px-4 py-3">
+      <div className="flex items-center justify-between gap-3 rounded-[15px] border border-line px-4 py-3">
         <div className="flex flex-1 items-center gap-2">
-          <span className="font-mono text-[0.813rem] text-muted">
+          <span className="hidden font-mono text-[0.813rem] text-muted sm:inline">
             ask the archive
           </span>
           <input
@@ -49,11 +52,11 @@ export default function AskBar() {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAsk()}
             placeholder="fast water types with high attack..."
-            className="flex-1 bg-transparent font-mono text-[0.813rem] text-paper outline-none placeholder:text-muted"
+            className="w-full flex-1 bg-transparent font-mono text-[0.813rem] text-paper outline-none placeholder:text-muted"
           />
         </div>
         <button
-          className="rounded-full border border-vermilion px-3 py-1 font-mono text-xs text-vermilion"
+          className="shrink-0 rounded-full border border-vermilion px-3 py-1 font-mono text-xs text-vermilion transition-colors hover:bg-vermilion hover:text-ink disabled:opacity-50"
           onClick={handleAsk}
           disabled={loading}
         >
