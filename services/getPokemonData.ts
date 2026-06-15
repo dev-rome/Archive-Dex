@@ -10,13 +10,21 @@ export async function getPokemonData(): Promise<Pokemon[]> {
     next: { revalidate: false },
   });
 
+  if (!res.ok) {
+    throw new Error(`Failed to fetch Pokémon list: ${res.status}`);
+  }
+
   const data: PokemonListResponse = await res.json();
 
-  const pokemon = await Promise.all(
+  const results = await Promise.allSettled(
     data.results.map(async (item) => {
       const detailRes = await fetch(item.url, {
         next: { revalidate: false },
       });
+
+      if (!detailRes.ok) {
+        throw new Error(`Failed to fetch ${item.name}: ${detailRes.status}`);
+      }
 
       const detail: PokemonDetailShape = await detailRes.json();
 
@@ -31,5 +39,9 @@ export async function getPokemonData(): Promise<Pokemon[]> {
     }),
   );
 
-  return pokemon;
+  return results
+    .filter(
+      (r): r is PromiseFulfilledResult<Pokemon> => r.status === "fulfilled",
+    )
+    .map((r) => r.value);
 }
