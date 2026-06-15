@@ -1,22 +1,27 @@
-export type PokemonType =
-  | "normal"
-  | "fire"
-  | "water"
-  | "electric"
-  | "grass"
-  | "ice"
-  | "fighting"
-  | "poison"
-  | "ground"
-  | "flying"
-  | "psychic"
-  | "bug"
-  | "rock"
-  | "ghost"
-  | "dragon"
-  | "dark"
-  | "steel"
-  | "fairy";
+export const POKEMON_TYPES = [
+  "normal",
+  "fire",
+  "water",
+  "electric",
+  "grass",
+  "ice",
+  "fighting",
+  "poison",
+  "ground",
+  "flying",
+  "psychic",
+  "bug",
+  "rock",
+  "ghost",
+  "dragon",
+  "dark",
+  "steel",
+  "fairy",
+] as const;
+
+export type PokemonType = (typeof POKEMON_TYPES)[number];
+
+export type Stat = { name: string; value: number };
 
 export type PokemonListItem = {
   name: string;
@@ -39,6 +44,10 @@ export type Pokemon = {
   types: PokemonType[];
 };
 
+export type Specimen = Pokemon & {
+  stats: Stat[];
+};
+
 export type PokemonDetailShape = {
   id: number;
   name: string;
@@ -52,16 +61,6 @@ export type PokemonDetailShape = {
       name: string;
     };
   }[];
-};
-
-export type Specimen = {
-  id: number;
-  name: string;
-  sprite: string;
-  types: PokemonType[];
-  height: number;
-  weight: number;
-  stats: { name: string; value: number }[];
 };
 
 export type SpecimenDetailShape = PokemonDetailShape & {

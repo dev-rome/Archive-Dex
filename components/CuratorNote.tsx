@@ -1,6 +1,7 @@
 "use client";
 
 import { useCompletion } from "@ai-sdk/react";
+import { Stat, PokemonType } from "@/types/pokemon";
 
 export default function CuratorNote({
   name,
@@ -8,8 +9,8 @@ export default function CuratorNote({
   stats,
 }: {
   name: string;
-  types: string[];
-  stats: { name: string; value: number }[];
+  types: PokemonType[];
+  stats: Stat[];
 }) {
   const { completion, complete, isLoading, error } = useCompletion({
     api: "/api/curator",
