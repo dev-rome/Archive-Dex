@@ -76,3 +76,5 @@ export type SpeciesShape = {
     language: { name: string };
   }[];
 };
+
+export type ExaminedEntry = { id: number; name: string };
