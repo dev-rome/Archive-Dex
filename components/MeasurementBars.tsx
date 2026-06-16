@@ -1,12 +1,13 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { Stat } from "@/types/pokemon";
 
 export default function MeasurementBars({
   stats,
   typeColor,
 }: {
-  stats: { name: string; value: number }[];
+  stats: Stat[];
   typeColor: string;
 }) {
   const shouldReduceMotion = useReducedMotion();
