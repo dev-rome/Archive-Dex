@@ -1,7 +1,8 @@
 import { z } from "zod";
+import { POKEMON_TYPES, statSchema } from "@/types/pokemon";
 
 export const bodySchema = z.object({
   name: z.string(),
-  types: z.array(z.string()),
-  stats: z.array(z.object({ name: z.string(), value: z.number() })),
+  types: z.array(z.enum(POKEMON_TYPES)),
+  stats: z.array(statSchema),
 });

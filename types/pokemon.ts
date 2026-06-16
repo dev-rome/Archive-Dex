@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const POKEMON_TYPES = [
   "normal",
   "fire",
@@ -21,7 +23,13 @@ export const POKEMON_TYPES = [
 
 export type PokemonType = (typeof POKEMON_TYPES)[number];
 
-export type Stat = { name: string; value: number };
+export const statSchema = z.object({
+  name: z.string(),
+  value: z.number(),
+});
+export type Stat = z.infer<typeof statSchema>;
+
+export type ExaminedEntry = { id: number; name: string };
 
 export type PokemonListItem = {
   name: string;
@@ -76,5 +84,3 @@ export type SpeciesShape = {
     language: { name: string };
   }[];
 };
-
-export type ExaminedEntry = { id: number; name: string };
