@@ -23,4 +23,10 @@
     -webkit-font-smoothing: antialiased;
     scrollbar-gutter: stable;
   }
+
+  @media (hover: hover) and (pointer: fine) {
+    button:enabled {
+      cursor: pointer;
+    }
+  }
 }

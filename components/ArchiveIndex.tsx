@@ -19,9 +19,11 @@ export default function ArchiveIndex({
   types: ("all" | PokemonType)[];
 }) {
   const searchParams = useSearchParams();
-  const initialType = (searchParams.get("type") ?? "all") as
-    | "all"
-    | PokemonType;
+  const rawType = searchParams.get("type");
+  const initialType: "all" | PokemonType =
+    rawType && types.includes(rawType as PokemonType)
+      ? (rawType as PokemonType)
+      : "all";
   const [activeType, setActiveType] = useState<"all" | PokemonType>(
     initialType,
   );
@@ -37,12 +39,6 @@ export default function ArchiveIndex({
   const paged = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
   const shouldReduceMotion = useReducedMotion();
   const item: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: shouldReduceMotion ? 0 : 0.4, ease: "easeOut" },
-    },
     exit: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.9 },
   };
 
@@ -65,10 +61,10 @@ export default function ArchiveIndex({
               setActiveType(t);
               setPage(1);
             }}
-            className={`rounded-full px-3 py-1 font-mono text-sm ${
+            className={`rounded-full px-3 py-1 font-mono text-sm transition-colors ${
               t === activeType
                 ? "bg-paper text-ink"
-                : "border border-line text-muted"
+                : "border border-line text-muted hover:border-paper hover:text-paper"
             }`}
           >
             {t}
@@ -95,7 +91,7 @@ export default function ArchiveIndex({
           </motion.div>
           <div className="flex items-center justify-center gap-4 font-mono text-sm">
             <button
-              className="disabled:cursor-not-allowed disabled:opacity-30"
+              className="transition-opacity disabled:cursor-not-allowed disabled:opacity-30"
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
             >
@@ -105,7 +101,7 @@ export default function ArchiveIndex({
               page {page} of {totalPages}
             </span>
             <button
-              className="disabled:cursor-not-allowed disabled:opacity-30"
+              className="transition-opacity disabled:cursor-not-allowed disabled:opacity-30"
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
             >
