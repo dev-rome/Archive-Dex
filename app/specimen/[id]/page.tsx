@@ -24,24 +24,23 @@ export default async function SpecimenPage({
     getSpecies(numId),
   ]);
 
+  const typeColor = pokemonTypeColors[specimen.types[0]];
+  const dexNumber = String(specimen.id).padStart(3, "0");
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-8">
       <article className="relative overflow-hidden">
         <RecordExamination id={specimen.id} name={specimen.name} />
         <span
           className="pointer-events-none absolute -top-8 right-0 font-serif leading-none opacity-[0.08]"
-          style={{
-            fontSize: "12rem",
-            color: pokemonTypeColors[specimen.types[0]],
-          }}
+          style={{ fontSize: "12rem", color: typeColor }}
         >
-          {String(specimen.id).padStart(3, "0")}
+          {dexNumber}
         </span>
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-6">
             <p className="font-mono text-sm tracking-[0.12em] text-vermilion">
-              specimen {String(specimen.id).padStart(3, "0")} ·{" "}
-              {specimen.types.join(" / ")}
+              specimen {dexNumber} · {specimen.types.join(" / ")}
             </p>
             <h1 className="font-serif text-[2.75rem] leading-[1.05] text-paper capitalize lg:text-[4.5rem]">
               {specimen.name}
@@ -52,13 +51,11 @@ export default async function SpecimenPage({
             <ViewTransition name={`sprite-${specimen.id}`}>
               <div
                 className="flex h-20 w-20 items-center justify-center rounded-full"
-                style={{
-                  backgroundColor: pokemonTypeColors[specimen.types[0]],
-                }}
+                style={{ backgroundColor: typeColor }}
               >
                 <Image
                   src={specimen.sprite}
-                  alt={specimen.name}
+                  alt=""
                   width={60}
                   height={60}
                 />
@@ -67,20 +64,19 @@ export default async function SpecimenPage({
             <p className="font-mono text-xs text-muted">
               HT {specimen.height / 10}m · WT {specimen.weight / 10}kg
             </p>
-
             <div className="flex gap-2">
               {specimen.id > 1 && (
                 <Link
                   href={`/specimen/${specimen.id - 1}`}
-                  className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted"
+                  className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted transition-colors hover:border-paper hover:text-paper"
                 >
                   ← {String(specimen.id - 1).padStart(3, "0")}
                 </Link>
               )}
-              {specimen.id < 151 && (
+              {specimen.id < 1025 && (
                 <Link
                   href={`/specimen/${specimen.id + 1}`}
-                  className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted"
+                  className="rounded-full border border-line px-3 py-1 font-mono text-sm text-muted transition-colors hover:border-paper hover:text-paper"
                 >
                   {String(specimen.id + 1).padStart(3, "0")} →
                 </Link>
@@ -92,10 +88,7 @@ export default async function SpecimenPage({
               <p className="font-mono text-sm tracking-widest text-muted">
                 measurements
               </p>
-              <MeasurementBars
-                stats={specimen.stats}
-                typeColor={pokemonTypeColors[specimen.types[0]]}
-              />
+              <MeasurementBars stats={specimen.stats} typeColor={typeColor} />
             </section>
             <section className="space-y-2">
               <p className="font-mono text-sm tracking-widest text-muted">
