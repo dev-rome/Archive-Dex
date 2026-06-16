@@ -8,7 +8,7 @@ const bubbles = [
   {
     id: "006",
     bg: pokemonTypeColors.fire,
-    fg: "#4A1F11",
+    fg: "#2A0F08",
     top: "top-24 md:top-20 xl:top-24",
     right: "right-6 md:right-40 xl:right-[25rem]",
     duration: 2.8,
@@ -18,7 +18,7 @@ const bubbles = [
   {
     id: "025",
     bg: pokemonTypeColors.electric,
-    fg: "#4A3A14",
+    fg: "#2A1F0A",
     top: "md:top-30 xl:top-40",
     right: "md:right-12 xl:right-56",
     duration: 3.2,
@@ -28,7 +28,7 @@ const bubbles = [
   {
     id: "007",
     bg: pokemonTypeColors.water,
-    fg: "#1E3044",
+    fg: "#0E1822",
     top: "md:top-6 xl:top-4",
     right: "md:right-20 xl:right-[17rem]",
     duration: 3.6,
