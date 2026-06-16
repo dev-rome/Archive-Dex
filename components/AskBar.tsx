@@ -49,7 +49,7 @@ export default function AskBar() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleAsk()}
-            placeholder="fast water types with high attack..."
+            placeholder="try 'water types' or 'fire and flying'"
             className="w-full flex-1 bg-transparent font-mono text-[0.813rem] text-paper outline-none placeholder:text-muted"
           />
         </div>
