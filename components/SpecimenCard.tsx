@@ -11,7 +11,7 @@ export default function SpecimenCard({ pokemon }: { pokemon: Pokemon }) {
   return (
     <Link href={`/specimen/${pokemon.id}`} className="block">
       <article
-        className="group relative overflow-hidden rounded-[10px] border border-line bg-surface p-4 transition-colors hover:border-(--type)"
+        className="group relative overflow-hidden rounded-[10px] border border-line bg-surface p-4 transition-colors hover:border-(--type) focus-visible:border-(--type) focus-visible:outline-none"
         style={{ "--type": typeColor } as React.CSSProperties}
       >
         <span
@@ -20,25 +20,21 @@ export default function SpecimenCard({ pokemon }: { pokemon: Pokemon }) {
         >
           {dexNumber}
         </span>
+
         <div className="flex flex-col">
           <ViewTransition name={`sprite-${pokemon.id}`}>
             <div
               className="flex h-20 w-20 items-center justify-center rounded-full"
-              style={{
-                backgroundColor: pokemonTypeColors[pokemon.types[0]],
-              }}
+              style={{ backgroundColor: typeColor }}
             >
-              <Image
-                src={pokemon.sprite}
-                alt={pokemon.name}
-                width={60}
-                height={60}
-              />
+              <Image src={pokemon.sprite} alt="" width={60} height={60} />
             </div>
           </ViewTransition>
+
           <h2 className="font-serif text-[1.375rem] text-paper capitalize">
             {pokemon.name}
           </h2>
+
           <p className="font-mono text-sm text-muted">
             no. {dexNumber} · {pokemon.types.join(" / ")}
           </p>
