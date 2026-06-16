@@ -20,7 +20,6 @@ export default function SpecimenCard({ pokemon }: { pokemon: Pokemon }) {
         >
           {dexNumber}
         </span>
-
         <div className="flex flex-col">
           <ViewTransition name={`sprite-${pokemon.id}`}>
             <div
@@ -30,11 +29,9 @@ export default function SpecimenCard({ pokemon }: { pokemon: Pokemon }) {
               <Image src={pokemon.sprite} alt="" width={60} height={60} />
             </div>
           </ViewTransition>
-
           <h2 className="font-serif text-[1.375rem] text-paper capitalize">
             {pokemon.name}
           </h2>
-
           <p className="font-mono text-sm text-muted">
             no. {dexNumber} · {pokemon.types.join(" / ")}
           </p>

@@ -57,7 +57,6 @@ export default function TeamCoach() {
           placeholder="charizard, gyarados, pidgeot"
           className="flex-1 bg-transparent font-mono text-sm text-paper outline-none placeholder:text-muted"
         />
-
         <button
           onClick={handleAnalyze}
           disabled={loading}
@@ -66,13 +65,11 @@ export default function TeamCoach() {
           {loading ? "analyzing…" : "analyze ↗"}
         </button>
       </div>
-
       {loading && (
         <p className="font-mono text-xs text-muted">
           consulting the archive… cross-referencing specimens
         </p>
       )}
-
       {displayed && (
         <p className="border-l-2 border-vermilion pl-4 font-sans leading-[1.65] text-paper">
           {displayed}
@@ -81,7 +78,6 @@ export default function TeamCoach() {
           )}
         </p>
       )}
-
       {error && (
         <p className="font-mono text-xs text-vermilion">
           the analysis could not be completed — try again

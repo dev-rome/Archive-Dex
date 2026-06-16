@@ -23,7 +23,6 @@ export default async function SpecimenPage({
     getSpecimen(numId),
     getSpecies(numId),
   ]);
-
   const typeColor = pokemonTypeColors[specimen.types[0]];
   const dexNumber = String(specimen.id).padStart(3, "0");
 

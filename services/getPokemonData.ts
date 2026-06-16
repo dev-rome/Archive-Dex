@@ -21,11 +21,9 @@ export async function getPokemonData(): Promise<Pokemon[]> {
       const detailRes = await fetch(item.url, {
         next: { revalidate: false },
       });
-
       if (!detailRes.ok) {
         throw new Error(`Failed to fetch ${item.name}: ${detailRes.status}`);
       }
-
       const detail: PokemonDetailShape = await detailRes.json();
 
       return {

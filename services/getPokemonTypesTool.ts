@@ -14,7 +14,6 @@ export const getPokemonTypesTool = tool({
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${normalize}`, {
       next: { revalidate: false },
     });
-
     if (!res.ok) {
       return {
         success: false,
@@ -22,7 +21,6 @@ export const getPokemonTypesTool = tool({
         error: "not found",
       };
     }
-
     const data: PokemonDetailShape = await res.json();
 
     return {

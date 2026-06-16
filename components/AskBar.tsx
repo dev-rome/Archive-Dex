@@ -12,11 +12,9 @@ export default function AskBar() {
 
   const handleAsk = async () => {
     if (!query.trim()) return;
-
     setLoading(true);
     setNotFound(false);
     setError(false);
-
     try {
       const res = await fetch("/api/ask", {
         method: "POST",
