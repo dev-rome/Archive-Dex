@@ -22,7 +22,7 @@ export default async function Home() {
             Good evening, <br /> curator.
           </h1>
           <p className="font-mono text-xs text-muted">
-            {pokemon.length} specimens on file. Drag them around, they
+            {pokemon.length} {" "} specimens on file. Drag them around, they
             don&apos;t mind.
           </p>
           <SpecimenBubbles />

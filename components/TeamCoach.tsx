@@ -38,7 +38,7 @@ export default function TeamCoach() {
         setError(true);
         return;
       }
-      const data = await res.json();
+      const data: { analysis: string } = await res.json();
       setAnalysis(data.analysis);
     } catch {
       setError(true);
@@ -49,7 +49,7 @@ export default function TeamCoach() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 rounded-[15px] border border-line px-4 py-3">
+      <div className="flex items-center gap-3 rounded-[15px] border border-line px-4 py-3">
         <input
           value={team}
           onChange={(e) => setTeam(e.target.value)}
@@ -57,19 +57,22 @@ export default function TeamCoach() {
           placeholder="charizard, gyarados, pidgeot"
           className="flex-1 bg-transparent font-mono text-sm text-paper outline-none placeholder:text-muted"
         />
+
         <button
           onClick={handleAnalyze}
           disabled={loading}
-          className="rounded-full border border-vermilion px-3 py-1 font-mono text-xs text-vermilion transition-colors hover:bg-vermilion hover:text-ink"
+          className="shrink-0 rounded-full border border-vermilion px-3 py-1 font-mono text-xs text-vermilion transition-colors hover:bg-vermilion hover:text-ink disabled:opacity-50"
         >
           {loading ? "analyzing…" : "analyze ↗"}
         </button>
       </div>
+
       {loading && (
         <p className="font-mono text-xs text-muted">
           consulting the archive… cross-referencing specimens
         </p>
       )}
+
       {displayed && (
         <p className="border-l-2 border-vermilion pl-4 font-sans leading-[1.65] text-paper">
           {displayed}
@@ -78,6 +81,7 @@ export default function TeamCoach() {
           )}
         </p>
       )}
+
       {error && (
         <p className="font-mono text-xs text-vermilion">
           the analysis could not be completed — try again
