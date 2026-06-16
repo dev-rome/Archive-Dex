@@ -1,13 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useExamined } from "@/hooks/useExamined";
 
 export default function ExaminedCount() {
-  const [count, setCount] = useState<number | null>(null);
+  const examined = useExamined();
+  const count = examined?.length ?? 0;
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCount(JSON.parse(localStorage.getItem("examined") ?? "[]").length);
-  }, []);
-
-  return <span>{count === null || count === 0 ? "—" : count}</span>;
+  return <span>{count === 0 ? "—" : count}</span>;
 }
