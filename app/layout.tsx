@@ -26,8 +26,24 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://archive-dex.vercel.app"),
   title: "archive-dex — field specimen catalog",
-  description: "AI-powered specimen catalog built as a field research archive.",
+  description:
+    "A Pokédex reimagined as a natural history archive. Natural-language search, streaming AI curator notes, and team analysis across 1,025 specimens.",
+  openGraph: {
+    title: "archive-dex — field specimen catalog",
+    description:
+      "A Pokédex reimagined as a natural history archive — AI-powered, across 1,025 specimens.",
+    url: "https://archive-dex.vercel.app",
+    siteName: "archive-dex",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "archive-dex — field specimen catalog",
+    description:
+      "A Pokédex reimagined as a natural history archive — AI-powered, across 1,025 specimens.",
+  },
 };
 
 export default function RootLayout({
